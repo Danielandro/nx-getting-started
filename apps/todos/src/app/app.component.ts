@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 interface Todo {
   title: string;
@@ -9,12 +10,22 @@ interface Todo {
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  constructor(private http: HttpClient) {
+    this.fetchTodos();
+  }
+
   public todos: Todo[] = [
     { title: 'Todo One' },
     { title: 'Todo Two' }
   ];
 
-  public addTodo(newTodo: string) {
-    this.todos.push({ title: newTodo });
+  private fetchTodos(): void {
+    this.http.get<Todo[]>('/api/todos')
+      .subscribe(todosFromApi => this.todos = todosFromApi);
+  }
+
+  public addTodo() {
+    this.http.post('/api/addTodo', {})
+      .subscribe(() => this.fetchTodos());
   }
 }
