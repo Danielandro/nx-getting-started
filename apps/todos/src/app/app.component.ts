@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Todo } from "@myorg/data";
 
-interface Todo {
-  title: string;
-}
 @Component({
   selector: 'myorg-root',
   templateUrl: './app.component.html',
@@ -14,10 +12,7 @@ export class AppComponent {
     this.fetchTodos();
   }
 
-  public todos: Todo[] = [
-    { title: 'Todo One' },
-    { title: 'Todo Two' }
-  ];
+  public todos: Todo[] = [];
 
   private fetchTodos(): void {
     this.http.get<Todo[]>('/api/todos')

@@ -1,9 +1,7 @@
 // business logic goes here
 import { Injectable } from '@nestjs/common';
+import { Todo } from "@myorg/data";
 
-interface Todo {
-  title: string;
-}
 @Injectable()
 export class AppService {
   private todos: Todo[] = [{ title: 'Todo 1' }, { title: 'Todo 2' }];
